@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live2dLmitateFace.Plugins", "Live2dLmitateFace.Plugins.csproj", "{1FDFF4C1-2E7E-8A52-DDDF-4C1DD5FD5CAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live2dLmitateFace", "Live2dLmitateFace.csproj", "{8A9C080F-6DB6-F26D-6BF8-2371F4916A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live2dLmitateFace.Editor.Plugins", "Live2dLmitateFace.Editor.Plugins.csproj", "{0FE586A0-7771-84B4-65CC-5DA0D36903DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1FDFF4C1-2E7E-8A52-DDDF-4C1DD5FD5CAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FDFF4C1-2E7E-8A52-DDDF-4C1DD5FD5CAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FDFF4C1-2E7E-8A52-DDDF-4C1DD5FD5CAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FDFF4C1-2E7E-8A52-DDDF-4C1DD5FD5CAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A9C080F-6DB6-F26D-6BF8-2371F4916A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A9C080F-6DB6-F26D-6BF8-2371F4916A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A9C080F-6DB6-F26D-6BF8-2371F4916A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A9C080F-6DB6-F26D-6BF8-2371F4916A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FE586A0-7771-84B4-65CC-5DA0D36903DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FE586A0-7771-84B4-65CC-5DA0D36903DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FE586A0-7771-84B4-65CC-5DA0D36903DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FE586A0-7771-84B4-65CC-5DA0D36903DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
