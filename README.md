@@ -20,7 +20,7 @@
 WebCamTextureToMatHelper.cs  
 HiyoriImitateTheFace.cs
 如图  
-[描述](https://github.com/Shintaroa/Live2dLmitateFace/blob/master/configuration.png?raw=true)
+![描述](https://github.com/Shintaroa/Live2dLmitateFace/blob/master/configuration.png?raw=true)
 
 #### 其他
 live2d官网:http://www.live2d.com/usermanual/cubism2_cn/index.html  
