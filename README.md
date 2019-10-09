@@ -6,6 +6,7 @@
 
 #### 软件架构
   unity2017.2
+  Live2D Cubism Editor 3.2
 
 #### 安装教程
 1.下载此项目并且用unity打开  
