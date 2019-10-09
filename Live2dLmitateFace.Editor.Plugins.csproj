@@ -291,7 +291,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Plugins\DlibFaceLandmarkDetector\Editor\DlibFaceLandmarkDetectorMenuItem.cs" />
     <Compile Include="Assets\Plugins\Live2D\Cubism\Editor\AssetGuid.cs" />
     <Compile Include="Assets\Plugins\Live2D\Cubism\Editor\CubismAssetProcessor.cs" />
     <Compile Include="Assets\Plugins\Live2D\Cubism\Editor\Importers\ComponentExtensionMethods.cs" />
@@ -309,11 +308,8 @@
     <Compile Include="Assets\Plugins\Live2D\Cubism\Editor\Inspectors\CubismRendererInspector.cs" />
     <Compile Include="Assets\Plugins\Live2D\Cubism\Editor\Inspectors\CubismUserDataTagInspector.cs" />
     <Compile Include="Assets\Plugins\Live2D\Cubism\Samples\Editor\ImportCustomization.cs" />
-    <Compile Include="Assets\Plugins\OpenCVForUnity\Editor\iOS_BuildPostprocessor.cs" />
-    <Compile Include="Assets\Plugins\OpenCVForUnity\Editor\OpenCVForUnityMenuItem.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Plugins\DlibFaceLandmarkDetector\StreamingAssets\haarcascade_frontalface_alt.xml" />
     <None Include="Assets\Plugins\Live2D\Cubism\Changelog.txt" />
     <None Include="Assets\Plugins\Live2D\Cubism\License.txt" />
     <None Include="Assets\Plugins\Live2D\Cubism\Plugins\RedistributableFiles.txt" />
@@ -329,7 +325,6 @@
     <None Include="Assets\Plugins\Live2D\Cubism\Samples\MultipleModels\Description.txt" />
     <None Include="Assets\Plugins\Live2D\Cubism\Samples\PerspectiveCamera\Description.txt" />
     <None Include="Assets\Plugins\Live2D\Cubism\Samples\Raycasting\Description.txt" />
-    <None Include="Assets\Plugins\OpenCVForUnity\OpenCV_LICENSE.txt" />
     <None Include="Assets\StreamingAssets\haarcascade_frontalface_alt.xml" />
     <None Include="Assets\StreamingAssets\lbpcascade_frontalface.xml" />
     <None Include="Assets\StreamingAssets\text\OCRHMM_transitions_table.xml" />

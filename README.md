@@ -9,13 +9,18 @@
 
 #### 安装教程
 1.下载此项目并且用unity打开  
-2.下载下面两个unity资源包  
+2.因为github限制大小的原因下载下面两个unity资源包  
 链接：https://pan.baidu.com/s/1ZyhTenAPIWtcxkPY_G_7iw    
 提取码：2isv   
 链接：https://pan.baidu.com/s/117Z97w9K0jkWQ-8j9Y0t8A   
 提取码：0ooz   
-放入里面的Plugins文件夹
-3.重启unity
+放入里面的Plugins文件夹  
+3.最好重启一下unity  
+3.配置游戏对象hiyori_pro_t07上的脚本  
+WebCamTextureToMatHelper.cs  
+HiyoriImitateTheFace.cs
+如图  
+[描述](https://github.com/Shintaroa/Live2dLmitateFace/blob/master/configuration.png?raw=true)
 
 #### 其他
 live2d官网:http://www.live2d.com/usermanual/cubism2_cn/index.html  
