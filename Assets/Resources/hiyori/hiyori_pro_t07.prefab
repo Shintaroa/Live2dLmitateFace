@@ -15550,7 +15550,6 @@ MonoBehaviour:
   paramMouthOpenY: {fileID: 114417000019659592}
   paramMouthForm: {fileID: 114674751384227870}
   quad: {fileID: 0}
-  text: {fileID: 0}
 --- !u!114 &114496592491813028
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -153,8 +153,6 @@ public sealed class HiyoriImitateTheFace : MonoBehaviour
     }
     [SerializeField]
     private GameObject quad;
-    [SerializeField]
-    private GameObject text;
     /// <summary>
     /// The rot mat.
     /// </summary>
