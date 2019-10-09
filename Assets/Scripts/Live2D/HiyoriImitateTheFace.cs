@@ -7,9 +7,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Live2D;
 
 [RequireComponent(typeof(WebCamTextureToMatHelper))]
-public class HiyoriImitateTheFace : MonoBehaviour
+public sealed class HiyoriImitateTheFace : MonoBehaviour
 {
 
 
@@ -69,30 +71,90 @@ public class HiyoriImitateTheFace : MonoBehaviour
     Mat tvec;
 
     Texture2D texture;
+
     [SerializeField]
-    private CubismParameter ParamAngleX;
+    public CubismParameterBlendMode BlendMode = CubismParameterBlendMode.Additive;
     [SerializeField]
-    private CubismParameter ParamAngleY;
+    public CubismParameter paramAngleX;
+    private CubismParameter ParamAngleX
+    {
+        get { return paramAngleX; }
+        set { paramAngleX = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamAngleZ;
+    private CubismParameter paramAngleY;
+    private CubismParameter ParamAngleY
+    {
+        get { return paramAngleY; }
+        set { paramAngleY = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamEyeLOpen;
+    private CubismParameter paramAngleZ;
+    private CubismParameter ParamAngleZ
+    {
+        get { return paramAngleZ; }
+        set { paramAngleZ = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamEyeROpen;
+    private CubismParameter paramEyeLOpen;
+    private CubismParameter ParamEyeLOpen
+    {
+        get { return paramEyeLOpen; }
+        set { paramEyeLOpen = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamEyeBallX;
+    private CubismParameter paramEyeROpen;
+    private CubismParameter ParamEyeROpen
+    {
+        get { return paramEyeROpen; }
+        set { paramEyeROpen = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamEyeBallY;
+    private CubismParameter paramEyeBallX;
+    private CubismParameter ParamEyeBallX
+    {
+        get { return paramEyeBallX; }
+        set { paramEyeBallX = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamBrowRY;
+    private CubismParameter paramEyeBallY;
+    private CubismParameter ParamEyeBallY
+    {
+        get { return paramEyeBallY; }
+        set { paramEyeBallY = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamBrowLY;
+    private CubismParameter paramBrowRY;
+    private CubismParameter ParamBrowRY
+    {
+        get { return paramBrowRY; }
+        set { paramBrowRY = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamMouthOpenY;
+    private CubismParameter paramBrowLY;
+    private CubismParameter ParamBrowLY
+    {
+        get { return paramBrowLY; }
+        set { paramBrowLY = value; }
+    }
     [SerializeField]
-    private CubismParameter ParamMouthForm;
+    private CubismParameter paramMouthOpenY;
+    private CubismParameter ParamMouthOpenY
+    {
+        get { return paramMouthOpenY; }
+        set { paramMouthOpenY = value; }
+    }
+    [SerializeField]
+    private CubismParameter paramMouthForm;
+    private CubismParameter ParamMouthForm
+    {
+        get { return paramMouthForm; }
+        set { paramMouthForm = value; }
+    }
     [SerializeField]
     private GameObject quad;
+    [SerializeField]
+    private GameObject text;
     /// <summary>
     /// The rot mat.
     /// </summary>
@@ -108,6 +170,7 @@ public class HiyoriImitateTheFace : MonoBehaviour
     /// </summary>
     Matrix4x4 transformationM = new Matrix4x4();
 
+    Dictionary<CubismParameter, float> cubismParameterDictionary = new Dictionary<CubismParameter, float>();
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         Stack<IEnumerator> coroutines = new Stack<IEnumerator> ();
@@ -145,7 +208,6 @@ public class HiyoriImitateTheFace : MonoBehaviour
         );
         imagePoints = new MatOfPoint2f();
         rotMat = new Mat(3, 3, CvType.CV_64FC1);
-
         //设置dat
         faceLandmarkDetector = new FaceLandmarkDetector(sp_human_face_68_dat_filepath);
         //获取相机的mat
@@ -207,6 +269,7 @@ public class HiyoriImitateTheFace : MonoBehaviour
 
                 if (!double.IsNaN(tvec_z) && points.Count == 68)
                 {
+                    cubismParameterDictionary.Clear();
                     Calib3d.Rodrigues(rvec, rotMat);
 
                     transformationM.SetRow(0, new Vector4((float)rotMat.get(0, 0)[0], (float)rotMat.get(0, 1)[0], (float)rotMat.get(0, 2)[0], (float)tvec.get(0, 0)[0]));
@@ -226,15 +289,19 @@ public class HiyoriImitateTheFace : MonoBehaviour
                     upwards.z = ARM.m21;
 
                     Vector3 angles = Quaternion.LookRotation(forward, upwards).eulerAngles;
-                    double rotateX = (angles.x > 180) ? angles.x - 360 : angles.x;
-                    double rotateY = (angles.y > 180) ? angles.y - 360 : angles.y;
-                    double rotateZ = (angles.z > 180) ? angles.z - 360 : angles.z;
-                    //Debug.Log("X" + rotateX + "Y" + rotateY + "Z" + rotateZ);
-                    ParamAngleX.Value = (float)Math.Round(-rotateY) * 2;
-                    ParamAngleY.Value = (float)Math.Round(rotateX);
-                    ParamAngleZ.Value = (float)Math.Round(-rotateZ) * 2;
+                    float rotateX = angles.x > 180 ? angles.x - 360 : angles.x;
+                    cubismParameterDictionary.Add(ParamAngleY, (float)Math.Round(rotateX));
+                    float rotateY = angles.y > 180 ? angles.y - 360 : angles.y ;
+                    cubismParameterDictionary.Add(ParamAngleX, (float)Math.Round(-rotateY) * 2);
+                    float rotateZ = angles.z > 180 ? angles.z - 360 : angles.z;
+                    cubismParameterDictionary.Add(ParamAngleZ, (float)Math.Round(-rotateZ) * 2);
+                    //Debug.("X" + rotateX + "Y" + rotateY + "Z" + rotateZ);
 
-                   float eyeOpen_L = Mathf.Clamp(Mathf.Abs(points[43].y - points[47].y) / (Mathf.Abs(points[43].x - points[44].x) * 0.75f), -0.1f, 2.0f);
+                    //ParamAngleX.BlendToValue(BlendMode,(float)(Math.Round(-rotateY) * 2));
+                    //ParamAngleY.BlendToValue(BlendMode, (float)Math.Round(rotateX));
+                    //ParamAngleZ.BlendToValue(BlendMode, (float)Math.Round(-rotateZ) * 2);
+
+                    float eyeOpen_L = Mathf.Clamp(Mathf.Abs(points[43].y - points[47].y) / (Mathf.Abs(points[43].x - points[44].x) * 0.75f), -0.1f, 2.0f);
                    if (eyeOpen_L >= 0.8f)
                         eyeOpen_L = 1f;
                    else 
@@ -247,12 +314,14 @@ public class HiyoriImitateTheFace : MonoBehaviour
                     else
                          eyeOpen_R = 0;
 
-                     ParamEyeROpen.Value = eyeOpen_R;
-                     ParamEyeLOpen.Value = eyeOpen_L;
-
-                     ParamEyeBallX.Value = (float)rotateY / 30f;
-
-                    ParamEyeBallX.Value = (float)-rotateX / 30f - 0.25f;
+                    // ParamEyeROpen.BlendToValue(BlendMode, eyeOpen_R);
+                    cubismParameterDictionary.Add(ParamEyeROpen, eyeOpen_R);
+                    // ParamEyeLOpen.BlendToValue(BlendMode, eyeOpen_L);
+                    cubismParameterDictionary.Add(ParamEyeLOpen, eyeOpen_L);
+                    // ParamEyeBallX.BlendToValue(BlendMode, (float)rotateY / 30f);
+                    cubismParameterDictionary.Add(ParamEyeBallX, rotateY / 30f);
+                    // ParamEyeBallX.BlendToValue(BlendMode, (float)-rotateX / 30f - 0.25f);
+                    cubismParameterDictionary.Add(ParamEyeBallY, (float)-rotateX / 30f - 0.25f);
 
                     float RY = Mathf.Abs(points[19].y - points[27].y) / Mathf.Abs(points[27].y - points[29].y);
                     RY -= 1;
@@ -261,27 +330,36 @@ public class HiyoriImitateTheFace : MonoBehaviour
                     LY -= 1;
                     LY *= 4f;
 
-                    ParamBrowRY.Value = RY;
-                    ParamBrowLY.Value = LY;
-
+                    // ParamBrowRY.BlendToValue(BlendMode, RY);
+                    cubismParameterDictionary.Add(ParamBrowRY, RY);
+                    // ParamBrowLY.BlendToValue(BlendMode, LY);
+                    cubismParameterDictionary.Add(ParamBrowLY, LY);
                     float mouthOpen = Mathf.Clamp01(Mathf.Abs(points[62].y - points[66].y) / (Mathf.Abs(points[51].y - points[62].y) + Mathf.Abs(points[66].y - points[57].y)));
                     if (mouthOpen < 0.6f)
                         mouthOpen = 0;
-                    ParamMouthOpenY.Value = mouthOpen;
-
+                    // ParamMouthOpenY.BlendToValue(BlendMode, mouthOpen);
+                    cubismParameterDictionary.Add(ParamMouthOpenY, mouthOpen);
                     float mouthSize = Mathf.Abs(points[48].x - points[54].x) / (Mathf.Abs(points[31].x - points[35].x));
-                        
-                    ParamMouthForm.Value = Mathf.Clamp(mouthSize, -1.0f, 1.0f);
+                    // ParamMouthForm.BlendToValue(BlendMode, Mathf.Clamp(mouthSize, -1.0f, 1.0f));
+                    cubismParameterDictionary.Add(ParamMouthForm, Mathf.Clamp(mouthSize, -1.0f, 1.0f));
+
                 }
             }
             OpenCVForUnity.Utils.matToTexture2D(rgbaMat, texture, webCamTextureToMatHelper.GetBufferColors());
         }
     }
 
+    private void LateUpdate()
+    {
+        foreach(KeyValuePair<CubismParameter,float> kv in cubismParameterDictionary){
+            Debug.Log(kv.Key.name + " " + kv.Value);
+            kv.Key.BlendToValue(BlendMode, kv.Value);
+        }
+    }
     /// <summary>
     /// Raises the web cam texture to mat helper initialized event.
     /// </summary>
-     public void OnWebCamTextureToMatHelperInitialized()
+    public void OnWebCamTextureToMatHelperInitialized()
     {
         Mat webCamTextureMat = webCamTextureToMatHelper.GetMat();
 
@@ -289,7 +367,7 @@ public class HiyoriImitateTheFace : MonoBehaviour
         float height = webCamTextureMat.height();
 
         texture = new Texture2D(webCamTextureMat.cols(), webCamTextureMat.rows(), TextureFormat.RGBA32, false);
-        quad.GetComponent<Renderer>().material.mainTexture = texture;
+        quad.GetComponent<RawImage>().texture = texture;
         float imageSizeScale = 1.0f;
         float widthScale = (float)Screen.width / width;
         float heightScale = (float)Screen.height / height;

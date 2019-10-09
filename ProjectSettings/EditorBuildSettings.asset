@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/imitateTheFace.unity
-    guid: 9fdb858e710447c4faa1955372918be1
+    guid: fb476fe5e53d31a4dae33e59faefafe4
